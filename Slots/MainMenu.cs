@@ -44,7 +44,7 @@ namespace Slots
         }
         public static void Spin(List<string> table, double bet, double deposit, int spins)
         {
-
+            table = new List<string>() { "Wild", "Star", "Bell", "Seven", "Cherry", "Bar", "King", "Queen", "Jack", "!BONUS!" };
             for (int y = 0; y < spins; y++)
             {
                 List<string> one, two, three, four, five;

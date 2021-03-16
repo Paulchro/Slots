@@ -52,6 +52,7 @@ namespace Slots
             Console.WriteLine("Bonus round Ended");
             Console.WriteLine($"Bonus win: {bonus}");
             Console.WriteLine();
+
             Console.WriteLine("Θες να συνεχισεις? Y/N");
             PlayAgain(bet, deposit, spins, table);
 
@@ -59,7 +60,7 @@ namespace Slots
 
         private static void PlayAgain(double bet, double deposit, int spins, List<string> table)
         {
-            string g = Console.ReadLine();
+            string g = Console.ReadLine().ToUpper();
             switch (g)
             {
                 case "Y":
@@ -67,6 +68,8 @@ namespace Slots
                     break;
                 case "N":
                     Console.WriteLine("Ευχαριστουμε πολυ");
+                    Console.Clear();
+                    MainMenu.Menu();
                     break;
                 default:
                     Console.WriteLine("Καντε μια επιλογη");

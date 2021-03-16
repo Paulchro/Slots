@@ -65,65 +65,102 @@ namespace Slots
 
                 Lines.Five(bet, five, reels, ref what, ref result);
 
+                int count = 0;
+                
+               
+
                 if (result > 0)
                 {
                     deposit = deposit + result - bet;
                     Console.WriteLine($"You won {result}! You now have {deposit}");
+                    foreach (var item in reels[0])
+                    {
+                        if (item == "!BONUS!")
+                            count++;
+                    }
+                    foreach (var item in reels[1])
+                    {
+                        if (item == "!BONUS!")
+                            count++;
+                    }
+                    foreach (var item in reels[2])
+                    {
+                        if (item == "!BONUS!")
+                            count++;
+                    }
+                    if (count > 2)
+                    {
+                        Console.WriteLine("Bravo kerdises bonus");
+                        Console.WriteLine("\n");
+                        Console.WriteLine("Bonus round, +10 spins enabled");
+                        Console.WriteLine("Wins pay x3!");
+                        BonusRound.Bonus(bet, deposit, spins - y);
+
+                        break;
+                    }
                 }
 
                 else
                 {
                     deposit = deposit - bet;
                     Console.WriteLine($"Nothing, balance: {deposit} ");
+                    foreach (var item in reels[0])
+                    {
+                        if (item == "!BONUS!")
+                            count++;
+                    }
+                    foreach (var item in reels[1])
+                    {
+                        if (item == "!BONUS!")
+                            count++;
+                    }
+                    foreach (var item in reels[2])
+                    {
+                        if (item == "!BONUS!")
+                            count++;
+                    }
+                    if (count > 2)
+                    {
+                        Console.WriteLine("Bravo kerdises bonus");
+                        Console.WriteLine("\n");
+                        Console.WriteLine("Bonus round, +10 spins enabled");
+                        Console.WriteLine("Wins pay x3!");
+                        BonusRound.Bonus(bet, deposit, spins - y);
+
+                        break;
+                    }
                     if (deposit <= 0)
                     {
                         Console.WriteLine("Τα χρηματα σας τελειωσαν, θελετε να ξαναπαιξετε? Y/N");
-                        string g = Console.ReadLine();
-                       
-                        switch (g)
-                        {
-                            case "Y":
-                                Menu();
-                                break;
-                            case "N":
-                                Console.WriteLine("Ευχαριστουμε πολυ");
-                                break;
-                            default:
-                                Console.WriteLine("Καντε μια επιλογη");
-                                break;
-                        }
+                        NewPlay();
                     }
                 }
-                int count = 0;
-                foreach (var item in reels[0])
-                {
-                    if (item == "!BONUS!")
-                        count++;
-                }
-                foreach (var item in reels[1])
-                {
-                    if (item == "!BONUS!")
-                        count++;
-                }
-                foreach (var item in reels[2])
-                {
-                    if (item == "!BONUS!")
-                        count++;
-                }
-                if (count > 2)
-                {
-                    Console.WriteLine("Bravo kerdises bonus");
-                    Console.WriteLine("\n");
-                    Console.WriteLine("Bonus round, +10 spins enabled");
-                    Console.WriteLine("Wins pay x3!");
-                    BonusRound.Bonus(bet, deposit, spins - y);
-
-                    break;
-                }
+               
 
             }
             Console.WriteLine("Τα σπιν τελειωσαν, Θελετε να παιξετε παλι? Y/N");
             PlayAgain(deposit, bet);
+        }
+
+        private static void NewPlay()
+        {
+            string g = Console.ReadLine();
+
+            switch (g)
+            {
+                case "Y":
+                    Menu();
+                    break;
+                case "N":
+                    Console.WriteLine("Ευχαριστουμε πολυ");
+                    Thread.Sleep(1000);
+                    Environment.Exit(0);
+                    break;
+                default:
+                    Console.WriteLine("Καντε μια επιλογη");
+                    NewPlay();
+                    break;
+            }
         }
 
         private static void PlayAgain(double deposit, double bet)
@@ -136,8 +173,11 @@ namespace Slots
                     break;
                 case "N":
                     Console.WriteLine("Ευχαριστουμε πολυ");
+                    Thread.Sleep(1000);
+                    Environment.Exit(0);
                     break;
                 default:
+                    PlayAgain(deposit, bet);
                     Console.WriteLine("Καντε μια επιλογη");
                     break;
             }
@@ -172,8 +212,7 @@ namespace Slots
                 Console.Write(String.Format("{0,10}", item));
             }
             Console.WriteLine("\n");
-            int milliseconds = 1000;
-            Thread.Sleep(milliseconds);
+            Thread.Sleep(1000);
         }
 
 

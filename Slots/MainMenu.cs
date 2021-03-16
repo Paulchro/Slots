@@ -13,7 +13,7 @@ namespace Slots
         {
             Custom custom = new Custom();
             var table = new List<string>() { "Wild", "Star", "Bell", "Seven", "Cherry", "Bar", "King", "Queen", "Jack", "!BONUS!" };
-
+            Console.WriteLine("---Καλωςηρθατε στο παιχνιδι μας!---\n");
             Console.WriteLine("Καντε μια καταθεση");
             custom.Deposit = custom.ConvertToDouble(Console.ReadLine());
             Console.WriteLine($"Καταθεσατε: { custom.Deposit}");
@@ -90,10 +90,13 @@ namespace Slots
                     }
                     if (count > 2)
                     {
-                        Console.WriteLine("Bravo kerdises bonus");
-                        Console.WriteLine("\n");
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("------------------------------");
+                        Thread.Sleep(2000);
                         Console.WriteLine("Bonus round, +10 spins enabled");
                         Console.WriteLine("Wins pay x3!");
+                        Thread.Sleep(2000);
+                        Console.ResetColor();
                         BonusRound.Bonus(bet, deposit, spins - y);
 
                         break;
@@ -102,7 +105,7 @@ namespace Slots
 
                 else
                 {
-                    deposit = deposit - bet;
+                    deposit -= bet;
                     Console.WriteLine($"Nothing, balance: {deposit} ");
                     foreach (var item in reels[0])
                     {
@@ -121,24 +124,29 @@ namespace Slots
                     }
                     if (count > 2)
                     {
-                        Console.WriteLine("Bravo kerdises bonus");
-                        Console.WriteLine("\n");
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("------------------------------");
+                        Thread.Sleep(2000);
                         Console.WriteLine("Bonus round, +10 spins enabled");
                         Console.WriteLine("Wins pay x3!");
+                        Thread.Sleep(2000);
+                        Console.ResetColor();
                         BonusRound.Bonus(bet, deposit, spins - y);
 
                         break;
                     }
                     if (deposit <= 0)
                     {
+                        Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Τα χρηματα σας τελειωσαν, θελετε να ξαναπαιξετε? Y/N");
+                        Console.ResetColor();
                         NewPlay();
                     }
                 }
-               
-
             }
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("Τα σπιν τελειωσαν, Θελετε να παιξετε παλι? Y/N");
+            Console.ResetColor();
             PlayAgain(deposit, bet);
         }
 
@@ -195,21 +203,56 @@ namespace Slots
             reels.Add(table.OrderBy(x => rnd.Next()).Take(5).ToArray());
             reels.Add(table.OrderBy(x => rnd.Next()).Take(5).ToArray());
             reels.Add(table.OrderBy(x => rnd.Next()).Take(5).ToArray());
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine($" --------------------- No {spins - y} spin ---------------------");
+            Console.ResetColor();
             Console.WriteLine();
             foreach (var item in reels[0])
             {
-                Console.Write(String.Format("{0,10}", item));
+                if (item == "!BONUS!")
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write(String.Format("{0,10}", item));
+                    Console.ResetColor();
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write(String.Format("{0,10}", item));
+                    Console.ResetColor();
+                }
             }
             Console.WriteLine("\n");
             foreach (var item in reels[1])
             {
-                Console.Write(String.Format("{0,10}", item));
+                if (item == "!BONUS!")
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write(String.Format("{0,10}", item));
+                    Console.ResetColor();
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.Write(String.Format("{0,10}", item));
+                    Console.ResetColor();
+                }
             }
             Console.WriteLine("\n");
             foreach (var item in reels[2])
             {
-                Console.Write(String.Format("{0,10}", item));
+                if (item == "!BONUS!")
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write(String.Format("{0,10}", item));
+                    Console.ResetColor();
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.Write(String.Format("{0,10}", item));
+                    Console.ResetColor();
+                }
             }
             Console.WriteLine("\n");
             Thread.Sleep(1000);

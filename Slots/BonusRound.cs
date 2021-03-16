@@ -49,11 +49,14 @@ namespace Slots
                 
             }
             spins -= 11;
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("Bonus round Ended");
+            Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine($"Bonus win: {bonus}");
             Console.WriteLine();
-
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("Θες να συνεχισεις? Y/N");
+            Console.ResetColor();
             PlayAgain(bet, deposit, spins, table);
 
         }
